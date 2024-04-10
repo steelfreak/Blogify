@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Blog Details</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <h1>Blog Details</h1>
+
+  <div id="detailsContainer"></div>
+
+  <script>
+    // Get the blog title from the query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const blogTitle = urlParams.get('id');
+
+    // Load existing blog entries from local storage
+    const savedBlogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+    // Find the blog with the matching title
+    const selectedBlog = savedBlogs.find(blog => blog.title === blogTitle);
+
+    // Display the blog details
+    if (selectedBlog) {
+      const detailsContainer = document.getElementById('detailsContainer');
+      const blogDetails = document.createElement('div');
+      blogDetails.innerHTML = `
+        <h2>${selectedBlog.title}</h2>
+        <p>${selectedBlog.content}</p>
+      `;
+      detailsContainer.appendChild(blogDetails);
+    }
+  </script>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
